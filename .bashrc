@@ -49,9 +49,9 @@ export PATH=$BUN_INSTALL/bin:$PATH
 # dotnet
 export PATH=$HOME/.dotnet/:$PATH
 . "$HOME/.cargo/env"
+export PATH=$PATH:/usr/local/go/bin
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(starship init bash)"
 
-
-
+. ~/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
