@@ -251,8 +251,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{ "mfussenegger/nvim-jdtls" },
-
 	-- "gc" to comment visual regions/lines
 	{ "numToStr/Comment.nvim", opts = {} },
 
@@ -578,7 +576,12 @@ require("lazy").setup({
 				-- But for many setups, the LSP (`tsserver`) will work just fine
 				-- tsserver = {},
 				--
-				jdtls = {},
+				jdtls = {
+					cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/jdtls") },
+					root_dir = vim.fs.dirname(
+						vim.fs.find({ "gradlew", ".git", "mvnw", ".idea" }, { upward = true })[1]
+					),
+				},
 				phpactor = {},
 				gopls = {},
 				ocamllsp = {
