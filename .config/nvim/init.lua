@@ -251,6 +251,8 @@ require("lazy").setup({
 		end,
 	},
 
+	{ "mfussenegger/nvim-jdtls" },
+
 	-- "gc" to comment visual regions/lines
 	{ "numToStr/Comment.nvim", opts = {} },
 
@@ -576,6 +578,7 @@ require("lazy").setup({
 				-- But for many setups, the LSP (`tsserver`) will work just fine
 				-- tsserver = {},
 				--
+				jdtls = {},
 				phpactor = {},
 				gopls = {},
 				ocamllsp = {
