@@ -1,103 +1,7 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know how the Neovim basics, you can skip this step)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not sure exactly what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or neovim features used in kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your nvim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
---]]
-
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = false
-
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
@@ -423,7 +327,7 @@ require("lazy").setup({
 		end,
 	},
 
-	{ -- LSP Configuration & Plugins
+	--[[ { -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for neovim
@@ -563,6 +467,8 @@ require("lazy").setup({
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+			--                  local nvim_lsp = require('lspconfig')
+			local nvim_lsp = require("lspconfig")
 			local servers = {
 				-- clangd = {},
 				-- gopls = {},
@@ -576,16 +482,55 @@ require("lazy").setup({
 				-- But for many setups, the LSP (`tsserver`) will work just fine
 				-- tsserver = {},
 				--
+				emmet_ls = {
+					-- on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = {
+						"php",
+						"css",
+						"eruby",
+						"html",
+						"templ",
+						"javascript",
+						"javascriptreact",
+						"less",
+						"sass",
+						"scss",
+						"svelte",
+						"pug",
+						"typescriptreact",
+						"vue",
+					},
+					init_options = {
+						html = {
+							options = {
+								-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+								["bem.enabled"] = true,
+							},
+						},
+					},
+				},
 				jdtls = {
 					cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/jdtls") },
-					root_dir = vim.fs.dirname(
-						vim.fs.find({ "gradlew", ".git", "mvnw", ".idea" }, { upward = true })[1]
-					),
+					root_dir = nvim_lsp.util.root_pattern(".idea", "pom.xml", "gradlew", ".git", "mvnw"),
 				},
-				phpactor = {},
+				phpactor = {
+					root_dir = nvim_lsp.util.root_pattern(""),
+				},
+				html = {
+					filetypes = { "html", "templ" },
+				},
+				htmx = {
+					filetypes = { "html", "templ" },
+				},
 				gopls = {},
 				ocamllsp = {
 					cmd = { "ocamllsp" },
+				},
+				tailwindcss = {
+					capabilities = capabilities,
+					filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+					init_options = { userLanguages = { templ = "html" } },
 				},
 				lua_ls = {
 					-- cmd = {...},
@@ -632,7 +577,7 @@ require("lazy").setup({
 				},
 			})
 		end,
-	},
+	} ]]
 
 	{ -- Autoformat
 		"stevearc/conform.nvim",
@@ -642,7 +587,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { c = true, cpp = true, templ = true }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -957,5 +902,10 @@ require("lazy").setup({
 	},
 })
 
+vim.filetype.add({
+	extension = {
+		templ = "templ",
+	},
+})
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

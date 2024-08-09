@@ -51,6 +51,7 @@ export PATH=$HOME/.dotnet/:$PATH
 
 #go
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:~/go/bin
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(starship init bash)"
