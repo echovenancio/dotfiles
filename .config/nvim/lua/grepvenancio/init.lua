@@ -1,4 +1,4 @@
-require('grepvenancio.keymaps')
+require('grepvenancio.remaps')
 require('grepvenancio.functions')
 
 -- GLOBAL
