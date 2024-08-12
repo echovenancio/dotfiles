@@ -1,5 +1,5 @@
-require('keymaps')
-require('functions')
+require('grepvenancio.keymaps')
+require('grepvenancio.functions')
 
 -- GLOBAL
 vim.g.mapleader = ' '
