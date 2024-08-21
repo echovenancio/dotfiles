@@ -5,4 +5,3 @@ require('grepvenancio.functions')
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4	
 vim.opt.relativenumber = true
-
