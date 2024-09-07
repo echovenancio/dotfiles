@@ -1,4 +1,8 @@
-require('telescope').setup{
+local telescope = require('telescope')
+
+telescope.load_extension('project')
+
+telescope.setup{
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
@@ -37,7 +41,10 @@ require('telescope').setup{
 
 }
 
+require'telescope'.load_extension('project')
+
 local builtin = require('telescope.builtin')
+local extensions = require('telescope').extensions
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>bf', builtin.buffers, {})
@@ -46,3 +53,13 @@ vim.keymap.set('n', '<leader>lg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
 vim.keymap.set('n', '<leader>gb', builtin.git_branches, {})
 vim.keymap.set('n', '<leader>gc', builtin.git_commits, {})
+-- d	delete currently selected project
+-- r	rename currently selected project
+-- c	create a project*
+-- s	search inside files within your project
+-- b	browse inside files within your project
+-- w	change to the selected project's directory without opening it
+-- R	find a recently opened file within your project
+-- f	find a file within your project (same as <CR>)
+-- o	change current cd scope
+vim.keymap.set('n', '<leader>fp', extensions.project.project, {})
