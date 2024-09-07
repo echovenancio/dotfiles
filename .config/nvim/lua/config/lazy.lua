@@ -18,16 +18,29 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
-    {
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
+    spec = {
+        { import = "spec" },
     },
 
-    {
-        'nvim-telescope/telescope.nvim', tag = '0.1.8',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+    ui = {
+        icons = {
+            cmd = "⌘",
+            config = "🛠",
+            event = "📅",
+            ft = "📂",
+            init = "⚙",
+            keys = "🗝",
+            plugin = "🔌",
+            runtime = "💻",
+            require = "🌙",
+            source = "📄",
+            start = "🚀",
+            task = "📌",
+            lazy = "💤 ",
+        },
     },
 
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
+    checker = { enabled = true }
 
 })
+

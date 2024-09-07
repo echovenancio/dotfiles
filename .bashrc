@@ -26,11 +26,9 @@ shopt -s checkwinsize
 
 # some ls aliases
 alias vim="nvim"
-alias ls='exa --icons -hl --no-user --git --git-ignore'
-alias la='exa --icons -hla --no-user --git'
-alias lt='exa --icons -hlT --no-user --git --git-ignore'
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias g++dbc="g++ -ggdb -Werror -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -std=c++23"
+alias ls='exa -hl --no-user --git --git-ignore'
+alias la='exa -hla --no-user --git'
+alias lt='exa -hlT --no-user --git --git-ignore'
 
 # nvim
 export PATH="$PATH:/opt/nvim-linux64/bin" 
