@@ -2,11 +2,6 @@ return {
 
     { 'ThePrimeagen/harpoon' },
 
-    { 
-        'nvim-telescope/telescope-fzf-native.nvim', 
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' 
-    },
-
     {
       'stevearc/oil.nvim',
       ---@module 'oil'
@@ -14,7 +9,7 @@ return {
       opts = {},
       -- Optional dependencies
       --dependencies = { { "echasnovski/mini.icons", opts = {} } },
-      dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+      --dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
     },
 
     {
